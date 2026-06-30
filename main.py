@@ -1,38 +1,19 @@
 import asyncio
+import logging
 
-from aiogram.types import Message
 from aiogram import Bot, Dispatcher
-from aiogram.filters import CommandStart, Command
+from src.handlers import router
+from config import BOT_TOKEN
 
-BOT_TOKEN = "8939204700:AAHaksTu8Wm31BMz0RPvYM7qjkxz9jdRryo"
 
 bot = Bot(token = BOT_TOKEN)
 dp = Dispatcher() #обработчик входящих сообщений
 
-@dp.message(CommandStart())
-async def cmd_start(message: Message):
-        await message.answer(
-                f'Привет {message.from_user.first_name}! Я твой ботяра')
-        print(f'пользователь : {message.from_user.full_name} отправил {message.text} в {message.date}')
-
-
-@dp.message(Command('help'))
-async def cmd_help(message: Message):
-         await message.answer(
-                 '/start - привет\n'
-                 '/help - список команд\n'
-                 '/about - описание бота'
-         )
-         
-
-@dp.message(Command('about'))
-async def cmd_about(message: Message):
-        await message.answer(
-                f'Привет {message.from_user.first_name}! Я исполняю все что ты пишешь на бэкэнде'
-        )
 
 async def main():
+        dp.include_router(router)
         await dp.start_polling(bot) #отправляет запросы на тг-сервер
-        
-if __name__ == "__main__":
+
+if __name__ == "__main__": 
+        logging.basicConfig(level=logging.INFO) 
         asyncio.run(main())
