@@ -20,9 +20,16 @@ async def cmd_start(message: Message):
 async def cmd_help(message: Message):
          await message.answer(
                  '/start - привет\n'
-                 '/help - список команд'
-                 
+                 '/help - список команд\n'
+                 '/about - описание бота'
          )
+         
+
+@dp.message(Command('about'))
+async def cmd_about(message: Message):
+        await message.answer(
+                f'Привет {message.from_user.first_name}! Я исполняю все что ты пишешь на бэкэнде'
+        )
 
 async def main():
         await dp.start_polling(bot) #отправляет запросы на тг-сервер
