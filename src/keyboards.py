@@ -7,6 +7,9 @@ keyboard_main= ReplyKeyboardMarkup(keyboard=(
 
 inline = InlineKeyboardMarkup(
     inline_keyboard=[
-        [InlineKeyboardButton(text="Наш сайт",url="https://farmamir.kg")],
+        [InlineKeyboardButton(text="Документация JS", url="https://developer.mozilla.org/")],
+        [InlineKeyboardButton(text="Документация Python", url="https://www.python.org/")],
+        [InlineKeyboardButton(text="Документация C#", url="https://learn.microsoft.com/ru-ru/dotnet/csharp/")],
+        [InlineKeyboardButton(text="Начать обучение", callback_data="start_learning")],
         [InlineKeyboardButton(text="Начать викторину",callback_data="quiz_start")],
-        ])
+    ])

@@ -17,24 +17,7 @@ class Quiz(StatesGroup):
 @router.message(Command('game'))
 async def cmd_game(message: Message):
     await message.answer("Выберите один пункт", reply_markup=inline)
-    
-@router.message(F.text == 'JS')
-async def JS(message: Message):
-        await message.answer(
-                f'{message.from_user.first_name}, JS - язык программирования для веб'
-        )
-
-@router.message(F.text == 'Python')
-async def Python(message: Message):
-        await message.answer(
-                f'{message.from_user.first_name}, Python это популярный высокоуровневый язык программирования общего назначения.'
-        )
-        
-@router.message(F.text == 'с#')
-async def с(message: Message):
-        await message.answer(
-                f'{message.from_user.first_name}, с# это современный, универсальный объектно-ориентированный язык программирования, разработанный корпорацией Microsoft.'
-        )
+  
     
 # старт викторины
 @router.callback_query(F.data == 'quiz_start')
@@ -45,6 +28,25 @@ async def quiz_start(callback: CallbackQuery, state: FSMContext):
         await callback.message.answer(f"Вопрос 1\n\n{QUESTIONS[0]['q']}"
 )
 
+@router.message(Command('help'))
+async def cmd_help(message: Message):
+    await message.answer("Выберите действие:", reply_markup=inline)
+
+@router.callback_query(F.data == "start_learning")
+async def start_learning(callback: CallbackQuery):
+    await callback.answer("Начинаем обучение!", show_alert=True)
+
+@router.message(F.text.casefold() == 'js')
+async def js_info(message: Message):
+    await message.answer("JS — язык программирования для веб-разработки.")
+
+@router.message(F.text.casefold() == 'python')
+async def py_info(message: Message):
+    await message.answer("Python — популярный язык общего назначения.")
+
+@router.message(F.text.casefold() == 'c#')
+async def cs_info(message: Message):
+    await message.answer("C# — объектно-ориентированный язык от Microsoft.")
 
 @router.message(CommandStart())
 async def cmd_start(message: Message):
@@ -55,16 +57,6 @@ async def cmd_start(message: Message):
         print(f'пользователь : {message.from_user.full_name} отправил {message.text} в {message.date}')
 
 
-@router.message(Command('help'))
-async def cmd_help(message: Message):
-         await message.answer(
-                 '/start - привет\n'
-                 '/help - список команд\n'
-                 '/about - описание бота\n'
-                 'пока - прощание\n'
-                 'echo - сообщение юзера дублируется',
-                 reply_markup=inline
-         )
          
 
 @router.message(Command('about'))
