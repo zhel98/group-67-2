@@ -30,21 +30,21 @@ async def quiz_start(callback: CallbackQuery, state: FSMContext):
 
 @router.message(Command('help'))
 async def cmd_help(message: Message):
-    await message.answer("Выберите действие:", reply_markup=inline)
+    await message.answer("Выберите:", reply_markup=inline)
 
 @router.callback_query(F.data == "start_learning")
 async def start_learning(callback: CallbackQuery):
     await callback.answer("Начинаем обучение!", show_alert=True)
 
-@router.message(F.text.casefold() == 'js')
+@router.message(F.text == 'js')
 async def js_info(message: Message):
     await message.answer("JS — язык программирования для веб-разработки.")
 
-@router.message(F.text.casefold() == 'python')
+@router.message(F.text == 'python')
 async def py_info(message: Message):
     await message.answer("Python — популярный язык общего назначения.")
 
-@router.message(F.text.casefold() == 'c#')
+@router.message(F.text == 'c#')
 async def cs_info(message: Message):
     await message.answer("C# — объектно-ориентированный язык от Microsoft.")
 
@@ -55,8 +55,6 @@ async def cmd_start(message: Message):
                 reply_markup=keyboard_main
                 )
         print(f'пользователь : {message.from_user.full_name} отправил {message.text} в {message.date}')
-
-
          
 
 @router.message(Command('about'))
