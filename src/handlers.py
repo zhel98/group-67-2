@@ -6,7 +6,7 @@ from src.keyboards import keyboard_main, inline
 
 router = Router()
 
-@router.callback_query(F.data == 'quiz start')
+@router.callback_query(F.data == 'quiz_start')
 async def quiz_strart(callback: CallbackQuery):
         await callback.answer("Че там где там броузер?", show_alert=True)
         await callback.message.answer("Начинаем еблю!")
