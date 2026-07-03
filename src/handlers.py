@@ -21,19 +21,19 @@ async def cmd_game(message: Message):
 @router.message(F.text == 'JS')
 async def JS(message: Message):
         await message.answer(
-                f'{message.from_user.first_name} JS - язык программирования для веб'
+                f'{message.from_user.first_name}, JS - язык программирования для веб'
         )
 
 @router.message(F.text == 'Python')
 async def Python(message: Message):
         await message.answer(
-                f'{message.from_user.first_name} Python - язык программирования'
+                f'{message.from_user.first_name}, Python это популярный высокоуровневый язык программирования общего назначения.'
         )
         
 @router.message(F.text == 'с#')
 async def с(message: Message):
         await message.answer(
-                f'{message.from_user.first_name} с# - язык программирования'
+                f'{message.from_user.first_name}, с# это современный, универсальный объектно-ориентированный язык программирования, разработанный корпорацией Microsoft.'
         )
     
 # старт викторины
