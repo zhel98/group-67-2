@@ -1,10 +1,15 @@
 from aiogram import Router, F
-from aiogram.types import Message
+from aiogram.types import Message, CallbackQuery
 from aiogram.filters import CommandStart, Command
 
 from src.keyboards import keyboard_main, inline
 
 router = Router()
+
+@router.callback_query(F.data == 'quiz start')
+async def quiz_strart(callback: CallbackQuery):
+        await callback.answer("Че там где там броузер?", show_alert=True)
+        await callback.message.answer("Начинаем еблю!")
 
 
 @router.message(CommandStart())
