@@ -1,8 +1,8 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
 
 keyboard_main= ReplyKeyboardMarkup(keyboard=(
-    [KeyboardButton(text='Корзина')],
-    [KeyboardButton(text='Профиль'), KeyboardButton(text="Каталог")] 
+    [KeyboardButton(text='JS')],
+    [KeyboardButton(text='Python'), KeyboardButton(text="c#")] 
 ), resize_keyboard=True, input_field_placeholder="Выберите один пункт")
 
 inline = InlineKeyboardMarkup(
