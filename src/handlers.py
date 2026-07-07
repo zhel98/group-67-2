@@ -6,7 +6,7 @@ from aiogram.fsm.state import State, StatesGroup
 
 
 from src.questions import QUESTIONS
-from src.keyboards import keyboard_main, inline
+from src.keyboards import keyboard_main, inline, quiz_povtor
 
 router = Router()
 
@@ -27,6 +27,42 @@ async def quiz_start(callback: CallbackQuery, state: FSMContext):
         await state.set_state(Quiz.waiting_answer)
         await callback.message.answer(f"Вопрос 1\n\n{QUESTIONS[0]['q']}"
 )
+        
+@router.message(Quiz.waiting_answer)
+async def quiz_answer(message: Message, state: FSMContext):
+    data = await state.get_data()
+
+    index = data["index"]
+    score = data["score"]
+
+    user_answer = message.text.strip().lower()
+    correct_answer = QUESTIONS[index]["a"].strip().lower()
+
+    if user_answer == correct_answer:
+        score += 1
+        await message.answer("Правильно!")
+    else:
+        await message.answer(
+            f"Неправильно. Правильный ответ: {QUESTIONS[index]['a']}"
+        )
+
+    index += 1
+
+    if index < len(QUESTIONS):
+        await state.update_data(index=index, score=score)
+
+        await message.answer(
+            f"Вопрос {index + 1}\n\n{QUESTIONS[index]['q']}"
+        )
+    else:
+        await message.answer(
+            f"Викторина окончена!\n\n"
+            f"Твой результат: {score} из {len(QUESTIONS)}",
+            reply_markup=quiz_povtor
+        )
+
+        await state.clear()     
+        
 
 @router.message(Command('help'))
 async def cmd_help(message: Message):

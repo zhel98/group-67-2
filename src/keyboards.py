@@ -13,3 +13,9 @@ inline = InlineKeyboardMarkup(
         [InlineKeyboardButton(text="Начать обучение", callback_data="start_learning")],
         [InlineKeyboardButton(text="Начать викторину",callback_data="quiz_start")],
     ])
+
+quiz_povtor = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [InlineKeyboardButton(text="Сыграть снова", callback_data="quiz_start")]
+    ]
+)
